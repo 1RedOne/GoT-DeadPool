@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Game of Thrones Season 8 Pool</title>
+    <title>@ViewData["Title"] - GameOfThronePool</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -26,7 +26,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Game Of Thrones - Pool</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">GameOfThronePool</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -39,11 +39,10 @@
         </div>
     </nav>
     <div class="container body-content">
-        <br /><br />
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2019 - FoxDeploy.com</p>
+            <p>&copy; 2019 - GameOfThronePool</p>
         </footer>
     </div>
 
