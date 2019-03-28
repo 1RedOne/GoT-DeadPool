@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GameOfThronePool.Controllers
 {
     [Authorize]
-    [Route("[controller]/[action]")]
+//    [Route("[controller]/[action]")]
     public class ShowCharacterRecordController : Controller
     {
         private readonly DeadPoolDBContext _context;
