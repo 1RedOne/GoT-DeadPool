@@ -4,7 +4,23 @@
     Layout = "_Layout";
     ViewData["Title"] = "GoT - Who Lives";
 }
-
+<style>
+    .alive {
+        color:darkolivegreen;
+        text-shadow: 2px 2px 4px #000000;
+    }
+    .dead {
+        color:darkred;
+        text-shadow: 2px 2px 4px #000000;
+    }
+    .whitewalker {
+        color: darkslateblue;
+        text-shadow: 2px 2px 4px #FFFFFF;
+    }
+    body > div > table > tbody {
+        font-size: 18px;
+    }
+</style>
 
 <body>
 <div class="jumbotron">
@@ -19,19 +35,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CharacterName)
+                Character
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AliveStatus)
+                Status
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.WhiteWalkerStatus)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CharacterDiedEpisodeNo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
+                <div alt="Episode number of their death">Died in #</div>
             </th>
             <th></th>
         </tr>
@@ -43,17 +56,15 @@
                 @Html.DisplayFor(modelItem => item.CharacterName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AliveStatus)
+                @if (item.AliveStatus) { <div class="alive">Alive</div> } else { <div class="dead">Dead</div>}
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WhiteWalkerStatus)
+                @if (item.WhiteWalkerStatus) { <div class="whitewalker">Wight</div> } else { <div class="dead">☠</div>}
+                
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CharacterDiedEpisodeNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
+            </td>            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ShowCharacterStatusRecordID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ShowCharacterStatusRecordID">Details</a> |

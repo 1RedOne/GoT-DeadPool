@@ -1,9 +1,9 @@
 ﻿<Style>
-body > nav > div > div.navbar-header > a > img {
-    padding-bottom: 7px;
-    overflow: auto;
-    width: 200px;
-}    
+    body > nav > div > div.navbar-header > a > img {
+        padding-bottom: 7px;
+        overflow: auto;
+        width: 200px;
+    }
 </Style>
 <!DOCTYPE html>
 <html>
@@ -18,11 +18,12 @@ body > nav > div > div.navbar-header > a > img {
         <link href="~/lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/3.4.1/slate/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -80,3 +81,5 @@ body > nav > div > div.navbar-header > a > img {
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+<link href="~/css/bootstrap-toggle.css" rel="stylesheet" />
+<script src="~/js/bootstrap-toggle.js"></script>

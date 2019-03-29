@@ -2,30 +2,60 @@
     ViewData["Title"] = "Game of Thrones Season 8 DeadPool";
 }
 
+<style>
+.carousel-inner item {
+    height: 300px;
+    overflow: hidden;
+    width: 100%;
+}    
+.carousel-item img {
+    width: 100%;
+}
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
+}
+h
+    #myCarousel > div > div.item.active > div > h3 {
+        text-shadow: 2px 2px 4px #000000;
+    }
+
+    #myCarousel > div {
+        text-shadow: 2px 2px 4px #000000;
+    }
+</style>
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
     </ol>
     <div class="carousel-inner" role="listbox">
         <div class="item active">
-            <img src="~/images/WinterIsComing.jpg" alt="Assistant to the night king" class="img-responsive" height="1200" />
+            <img src="~/images/WinterIsComing.jpg" alt="Assistant to the night king" />
             <div class="carousel-caption" role="option">
-                <p>
-                    Register or sign in now!
+                <h3>
+                    Register or sign in now!<br />
                     @Html.ActionLink("Register⚔", "Login", "Account", null, new { @class = "btn btn-default" })
-                </p>
+                </h3>
             </div>
         </div>
         <div class="item">
-            <img src="~/images/DarkAndFullOfTerrors.jpg" alt="ForTheNightIsDarkAndFullOfTerrors" class="img-responsive" height="1200" />
+            <img src="~/images/Targ.jpg" alt="ForTheNightIsDarkAndFullOfTerrors" />
             <div class="carousel-caption" role="option">
-                <p>
-                    Join the group chat!
-                    <a class="btn btn-default" href="https://www.facebook.com/groups/375898252994350/">
-                        Join!
-                    </a>
-                </p>
+                <h3>
+                    Join the group chat!<br />
+                    <a class="btn btn-default" href="https://www.facebook.com/groups/375898252994350/">Join the chat!</a>
+                </h3>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/images/Baratheon.jpg" alt="ForTheNightIsDarkAndFullOfTerrors" />
+            <div class="carousel-caption" role="option">
+                <h3>    
+                <a href="https://www.facebook.com/groups/375898252994350/">Split a real pool to build your own Casterly Rock!</a>
+                </h3>                               
             </div>
         </div>
     </div>
@@ -54,11 +84,10 @@
     </div>
 
     <div class="col-md-3">
-        @Html.ActionLink("Who lives and who dies", "Index", "SetupCharacters")
         <h2>Track who lives and dies</h2>
         <ul>
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Current Leader Boards</a></li>
-            <li></li>
+            <li>@Html.ActionLink("Setup Characters", "Index", "SetupCharacters")</li>
         </ul>
     </div>
 </div>

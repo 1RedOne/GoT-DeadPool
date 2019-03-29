@@ -12,19 +12,51 @@ namespace GameOfThronePool.Data
         {
             context.Database.EnsureCreated();
 
-            /* Look for any Show Records.
-            if (context.ShowCharacterStatusRecords.Any())
+            ///* Look for any Show Records.
+            if (context.ShowCharacterStatusRecord.Any())
             {
                 return;   // DB has been seeded
             }
 
             var records = new ShowCharacterStatusRecord[]
             {
-            new ShowCharacterStatusRecord{CharacterName="Jon Snow",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now }
+            new ShowCharacterStatusRecord{CharacterName="Jon Snow",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Sansa Stark",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Arya Stark",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Bran Stark",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Cersei Lannister",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Jaime Lannister",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Tyrion Lannister",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Daenerys Targaryen",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Yara Greyjoy",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Theon Greyjoy",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Euron Greyjoy",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Melisandre",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Jorah Mormont",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Yara Greyjoy",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="The Hound",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="The Mountain",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Samwell Tarley",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Gilly",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Baby Sam",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Lord Varys",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Brienne of Tarth",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Yara Greyjoy",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Ser Davos Seaworth",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Bronn",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Podrick Payne",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Tormund Giantsbane",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Grey Worm",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Gendry Baratheon",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now },
+            new ShowCharacterStatusRecord{CharacterName="Beric Dondarrion",AliveStatus=true,WhiteWalkerStatus=false,CharacterDiedEpisodeNo=null,CreatedDate=DateTime.Now }
+            
+
+
+
             };
             foreach (ShowCharacterStatusRecord r in records)
             {
-                context.ShowCharacterStatusRecords.Add(r);
+                context.ShowCharacterStatusRecord.Add(r);
             }
             context.SaveChanges();
             /*

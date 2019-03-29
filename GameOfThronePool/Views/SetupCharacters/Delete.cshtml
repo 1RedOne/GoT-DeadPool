@@ -1,22 +1,20 @@
 ﻿@model GameOfThronePool.Models.ShowCharacterStatusRecord
-
 @{
-    Layout = null;
+    Layout = "_Layout";
+    ViewData["Title"] = "GoT - Edit";
 }
-
-<!DOCTYPE html>
-
-<html>
+@Html.ValidationSummary()
+<hr />
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Delete</title>
+    <title>Edit</title>
 </head>
-<body>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>ShowCharacterStatusRecord</h4>
-    <hr />
+
+<h4>Delete @Model.CharacterName ?</h4>
+<hr />
+<div>       
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.CharacterName)
@@ -49,12 +47,10 @@
             @Html.DisplayFor(model => model.CreatedDate)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="ShowCharacterStatusRecordID" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
-</body>
-</html>
