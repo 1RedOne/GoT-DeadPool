@@ -1,0 +1,60 @@
+﻿@model GameOfThronePool.Models.ShowCharacterStatusRecord
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "GoT - Who Lives";
+}
+
+
+<body>
+
+    <h4>Create a New Character</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CharacterName" class="control-label"></label>
+                    <input asp-for="CharacterName" class="form-control" />
+                    <span asp-validation-for="CharacterName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="AliveStatus" /> @Html.DisplayNameFor(model => model.AliveStatus)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="WhiteWalkerStatus" /> @Html.DisplayNameFor(model => model.WhiteWalkerStatus)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CharacterDiedEpisodeNo" class="control-label"></label>
+                    <input asp-for="CharacterDiedEpisodeNo" class="form-control" />
+                    <span asp-validation-for="CharacterDiedEpisodeNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CreatedDate" class="control-label"></label>
+                    <input asp-for="CreatedDate" class="form-control" />
+                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<GameOfThronePool.Models.ShowCharacterStatusRecord>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "GoT - Who Lives";
+}
+
+
+<body>
+<div class="jumbotron">
+    <h3>
+        Winter is a cruel mistress
+    </h3>
+</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CharacterName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AliveStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WhiteWalkerStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CharacterDiedEpisodeNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharacterName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AliveStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WhiteWalkerStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharacterDiedEpisodeNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ShowCharacterStatusRecordID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ShowCharacterStatusRecordID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ShowCharacterStatusRecordID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

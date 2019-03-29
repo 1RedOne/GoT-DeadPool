@@ -12,7 +12,7 @@ namespace GameOfThronePool.Data
         {
             context.Database.EnsureCreated();
 
-            // Look for any Show Records.
+            /* Look for any Show Records.
             if (context.ShowCharacterStatusRecords.Any())
             {
                 return;   // DB has been seeded

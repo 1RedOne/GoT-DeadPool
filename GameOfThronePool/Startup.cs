@@ -28,7 +28,10 @@ namespace GameOfThronePool
         {
             services.AddDbContext<DeadPoolDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            /*services.AddDefaultIdentity<IdentityUser>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+            });*/
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<DeadPoolDBContext>()
                 .AddDefaultTokenProviders();
