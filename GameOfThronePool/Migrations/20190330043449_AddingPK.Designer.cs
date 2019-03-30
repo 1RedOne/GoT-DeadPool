@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameOfThronePool.Migrations
 {
     [DbContext(typeof(DeadPoolDBContext))]
-    [Migration("20190329034641_UpdatedVS")]
-    partial class UpdatedVS
+    [Migration("20190330043449_AddingPK")]
+    partial class AddingPK
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,10 +56,14 @@ namespace GameOfThronePool.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
+                    b.Property<int>("UserId");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasAlternateKey("UserId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -101,8 +105,6 @@ namespace GameOfThronePool.Migrations
 
                     b.Property<bool>("AliveStatus");
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<bool>("BecomesAWhiteWalker");
 
                     b.Property<int>("CharacterID");
@@ -114,8 +116,6 @@ namespace GameOfThronePool.Migrations
                     b.Property<int>("UserID");
 
                     b.HasKey("UserCharacterSelectionID");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("UserCharacterSelection");
                 });
@@ -228,13 +228,6 @@ namespace GameOfThronePool.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("GameOfThronePool.Models.UserCharacterSelection", b =>
-                {
-                    b.HasOne("GameOfThronePool.Models.ApplicationUser")
-                        .WithMany("UserCharacterSelection")
-                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

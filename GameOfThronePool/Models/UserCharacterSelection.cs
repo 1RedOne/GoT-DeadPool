@@ -7,8 +7,8 @@ namespace GameOfThronePool.Models
 {
     public class UserCharacterSelection
     {
-        public int UserID { get; set; }
         public int UserCharacterSelectionID { get; set; }
+        public string UserName { get; set; }        
         public int CharacterID { get; set; }
         public string CharacterName { get; set; }
         public bool AliveStatus { get; set; }

@@ -8,7 +8,7 @@ namespace GameOfThronePool.Models
     public interface ICharacterRepository : IDisposable
     {
         IEnumerable<ShowCharacterStatusRecord> GetCharacters();
-        void StageNewUser(int )
+        void StageNewUser(string UserName);
         void Save();
     }
 }
