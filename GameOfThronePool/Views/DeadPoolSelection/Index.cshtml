@@ -1,0 +1,72 @@
+﻿@model IEnumerable<GameOfThronePool.Models.UserCharacterSelection>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Deathpool</h2>
+<div class="jumbotron">
+    <h3>
+        Setup your Deathpool Predictions!<br /> You can change these until <font color="yellow">April 17th, 2019</font>
+    </h3>
+</div>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CharacterID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CharacterName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AliveStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BecomesAWhiteWalker)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CharacterID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CharacterName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AliveStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BecomesAWhiteWalker)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.UserCharacterSelectionID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.UserCharacterSelectionID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.UserCharacterSelectionID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

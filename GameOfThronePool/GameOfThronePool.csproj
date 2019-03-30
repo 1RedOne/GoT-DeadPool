@@ -29,10 +29,6 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\DeadPool\" />
-  </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="echo build completed at&#xD;&#xA;time /t" />
   </Target>

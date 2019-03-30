@@ -232,6 +232,7 @@ namespace GameOfThronePool.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("Populating user with records");
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
