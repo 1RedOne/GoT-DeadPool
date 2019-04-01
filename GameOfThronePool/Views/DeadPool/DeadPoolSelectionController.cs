@@ -35,6 +35,7 @@ namespace GameOfThronePool.Views.DeadPool
                 newUserCharacterSelection.BecomesAWhiteWalker = false;
                 newUserCharacterSelection.CharacterName = character.CharacterName;
                 newUserCharacterSelection.UserName = UserName;
+                newUserCharacterSelection.CreatedDate = DateTime.Now;
 
                 _context.UserCharacterSelection.Add(newUserCharacterSelection);
             }
@@ -54,6 +55,7 @@ namespace GameOfThronePool.Views.DeadPool
                 //found records
                 Console.WriteLine("found records");
             }
+            else
             {
                 //found no records
                 StageNewUser(username);

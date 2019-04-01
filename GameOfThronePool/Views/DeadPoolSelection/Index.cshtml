@@ -4,12 +4,15 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     string username = @UserManager.GetUserName(User);
+    var userEntity = await @UserManager.FindByNameAsync(username);
+    string name = (userEntity.UserFriendlyName != null) ? userEntity.UserFriendlyName : username;
+
 }
 
 <h2>My Deathpool</h2>
 <div class="jumbotron">
     <h3>
-        @username, Setup your Deathpool Predictions!<br /> You can change these until <font color="yellow">April 17th, 2019</font>
+        @name, Setup your Deathpool Predictions!<br /> You can change these until <font color="yellow">April 17th, 2019</font>
     </h3>
 </div>
 
@@ -20,20 +23,14 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.CharacterName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AliveStatus)
+                Alive or Dead by the last Episode?
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BecomesAWhiteWalker)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
+                Do they become a White Walker?
+            </th>            
             <th></th>
         </tr>
     </thead>
@@ -42,9 +39,6 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.CharacterName)
                 </td>
                 <td>
@@ -52,9 +46,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.BecomesAWhiteWalker)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.UserCharacterSelectionID">Edit</a> |

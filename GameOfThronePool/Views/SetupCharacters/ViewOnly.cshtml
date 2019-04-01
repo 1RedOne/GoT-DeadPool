@@ -1,0 +1,72 @@
+﻿@model IEnumerable<GameOfThronePool.Models.ShowCharacterStatusRecord>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "GoT - Who Lives";
+}
+<style>
+    .alive {
+        color:darkolivegreen;
+        text-shadow: 2px 2px 4px #000000;
+    }
+    .dead {
+        color:darkred;
+        text-shadow: 2px 2px 4px #000000;
+    }
+    .whitewalker {
+        color: darkslateblue;
+        text-shadow: 2px 2px 4px #FFFFFF;
+    }
+    body > div > table > tbody {
+        font-size: 18px;
+    }
+</style>
+
+<body>
+<div class="jumbotron">
+    <h3>
+        Winter is a cruel mistress.  You can view the official standings of each character here!
+    </h3>
+</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Character
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WhiteWalkerStatus)
+            </th>
+            <th>
+                <div alt="Episode number of their death">Died in #</div>
+            </th>            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharacterName)
+            </td>
+            <td>
+                @if (item.AliveStatus) { <div class="alive">Alive</div> } else { <div class="dead">Dead</div>}
+            </td>
+            <td>
+                @if (item.WhiteWalkerStatus) { <div class="whitewalker">Wight</div> } else { <div class="dead">☠</div>}
+                
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharacterDiedEpisodeNo)
+            </td>                        
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

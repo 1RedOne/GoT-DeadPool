@@ -8,13 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using GameOfThronePool.Data;
 using GameOfThronePool.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace GameOfThronePool.Views
 {
     public class SetupCharactersController : Controller
     {
         private readonly DeadPoolDBContext _context;
-
+        private string[] admins = new string[] { "stephen@foxdeploy.com", "sred13@gmail.com" };
         public SetupCharactersController(DeadPoolDBContext context)
         {
             _context = context;
@@ -22,6 +23,23 @@ namespace GameOfThronePool.Views
 
         // GET: ShowCharacterStatusRecords
         public async Task<IActionResult> Index()
+        {
+            string username = HttpContext.User.Identity.Name;
+            //string user = UserManager.GetUserName(User);
+            if (admins.Contains(username)){
+                //this user is an admin
+                Console.Write("user admin incoming" + username);
+                return View(await _context.ShowCharacterStatusRecord.ToListAsync());
+            }
+            else
+            {
+                Console.Write("standard user" + username);
+                return RedirectToAction("ViewOnly");
+            }
+
+        }
+
+        public async Task<IActionResult> ViewOnly()
         {
             return View(await _context.ShowCharacterStatusRecord.ToListAsync());
         }

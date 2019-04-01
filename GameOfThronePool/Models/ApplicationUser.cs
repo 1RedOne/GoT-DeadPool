@@ -11,9 +11,5 @@ namespace GameOfThronePool.Models
     public class ApplicationUser : IdentityUser
     {
         public string UserFriendlyName { get; set; }
-        //[Key]
-        //public int UserId { get; set; }
-        //[ShowCharacterStatusRecordID] [int] IDENTITY(1,1) NOT NULL,
-        //public ICollection<UserCharacterSelection> UserCharacterSelection { get; set; }
     }
 }
