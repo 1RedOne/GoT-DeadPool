@@ -10,6 +10,7 @@ namespace GameOfThronePool.Models
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
     {
+        public string UserFriendlyName { get; set; }
         //[Key]
         //public int UserId { get; set; }
         //[ShowCharacterStatusRecordID] [int] IDENTITY(1,1) NOT NULL,

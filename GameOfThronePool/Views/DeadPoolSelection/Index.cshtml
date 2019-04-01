@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<GameOfThronePool.Models.UserCharacterSelection>
-
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string username = @UserManager.GetUserName(User);
 }
 
 <h2>My Deathpool</h2>
 <div class="jumbotron">
     <h3>
-        Setup your Deathpool Predictions!<br /> You can change these until <font color="yellow">April 17th, 2019</font>
+        @username, Setup your Deathpool Predictions!<br /> You can change these until <font color="yellow">April 17th, 2019</font>
     </h3>
 </div>
 
@@ -20,9 +21,6 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CharacterID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CharacterName)
@@ -45,9 +43,6 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CharacterID)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CharacterName)

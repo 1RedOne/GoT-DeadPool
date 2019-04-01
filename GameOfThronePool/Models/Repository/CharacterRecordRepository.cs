@@ -1,4 +1,5 @@
 ﻿using GameOfThronePool.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,19 @@ using System.Threading.Tasks;
 
 namespace GameOfThronePool.Models
 {
-    public class CharacterRecordRepository
+    public class CharacterRecordRepository : ICharacterRepository
     {
+
         private readonly DeadPoolDBContext _context;
+        
+        /*public CharacterRecordRepository(DeadPoolDBContext context)
+        {
+            _context = context;
+        }
+        */
+
+        public CharacterRecordRepository() { }
+        
         public IEnumerable<ShowCharacterStatusRecord> GetCharacters()
         {
             return _context.ShowCharacterStatusRecord.ToList();
@@ -27,7 +38,18 @@ namespace GameOfThronePool.Models
 
                 _context.UserCharacterSelection.Add(newUserCharacterSelection);
             }
+            _context.SaveChanges();
             return;
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
 
     }

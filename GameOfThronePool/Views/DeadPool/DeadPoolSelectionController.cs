@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GameOfThronePool.Data;
 using GameOfThronePool.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameOfThronePool.Views.DeadPool
 {
@@ -16,15 +17,53 @@ namespace GameOfThronePool.Views.DeadPool
 
         public DeadPoolSelectionController(DeadPoolDBContext context)
         {
-            _context = context;
+            _context = context;           
+        }
+        //internal methods
+        public IEnumerable<ShowCharacterStatusRecord> GetAllCharacters()
+        {
+            return _context.ShowCharacterStatusRecord.ToList();
         }
 
+        public void StageNewUser(string UserName)
+        {
+            List<ShowCharacterStatusRecord> allCharacters = GetAllCharacters().ToList();
+            foreach (ShowCharacterStatusRecord character in allCharacters)
+            {
+                UserCharacterSelection newUserCharacterSelection = new UserCharacterSelection();
+                newUserCharacterSelection.AliveStatus = true;
+                newUserCharacterSelection.BecomesAWhiteWalker = false;
+                newUserCharacterSelection.CharacterName = character.CharacterName;
+                newUserCharacterSelection.UserName = UserName;
+
+                _context.UserCharacterSelection.Add(newUserCharacterSelection);
+            }
+            _context.SaveChanges();
+            return;
+        }
+
+        [Authorize]
         // GET: DeadPoolSelection
         public async Task<IActionResult> Index()
         {
-            return View(await _context.UserCharacterSelection.ToListAsync());
+            string username = HttpContext.User.Identity.Name;
+            List<UserCharacterSelection> userRecords = await _context.UserCharacterSelection.AsQueryable().
+                Where(m => m.UserName.Equals(username)).ToListAsync();
+            
+            if (userRecords.Any()){
+                //found records
+                Console.WriteLine("found records");
+            }
+            {
+                //found no records
+                StageNewUser(username);
+                Console.WriteLine("setting up user records");
+                userRecords = await _context.UserCharacterSelection.AsQueryable().
+                                Where(m => m.UserName.Equals(username)).ToListAsync();
+            }            
+            return View(userRecords);
         }
-
+        [Authorize]
         // GET: DeadPoolSelection/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -42,13 +81,13 @@ namespace GameOfThronePool.Views.DeadPool
 
             return View(userCharacterSelection);
         }
-
+        [Authorize]
         // GET: DeadPoolSelection/Create
         public IActionResult Create()
         {
             return View();
         }
-
+        [Authorize]
         // POST: DeadPoolSelection/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -64,7 +103,7 @@ namespace GameOfThronePool.Views.DeadPool
             }
             return View(userCharacterSelection);
         }
-
+        [Authorize]
         // GET: DeadPoolSelection/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -84,6 +123,7 @@ namespace GameOfThronePool.Views.DeadPool
         // POST: DeadPoolSelection/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UserID,UserCharacterSelectionID,CharacterID,CharacterName,AliveStatus,BecomesAWhiteWalker,CreatedDate")] UserCharacterSelection userCharacterSelection)
@@ -117,6 +157,7 @@ namespace GameOfThronePool.Views.DeadPool
         }
 
         // GET: DeadPoolSelection/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +178,7 @@ namespace GameOfThronePool.Views.DeadPool
         // POST: DeadPoolSelection/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var userCharacterSelection = await _context.UserCharacterSelection.FindAsync(id);
