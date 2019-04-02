@@ -3,20 +3,24 @@
 }
 
 <style>
-.carousel-inner item {
-    height: 300px;
-    overflow: hidden;
-    width: 100%;
-}    
-.carousel-item img {
-    width: 100%;
-}
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
-}
-h
+    h4 {
+        font-family: OFL Sorts Mill Goudy, Noto Nastaliq Urdu, My Noto Nastaliq Urdu, Georgia, serif;
+    }
+
+    .carousel-inner item {
+        height: 300px;
+        overflow: hidden;
+        width: 100%;
+    }    
+    .carousel-item img {
+        width: 100%;
+    }
+    body {
+        padding-top: 50px;
+        padding-bottom: 20px;
+        font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
+    }
+
     #myCarousel > div > div.item.active > div > h3 {
         text-shadow: 2px 2px 4px #000000;
     }
@@ -25,6 +29,7 @@ h
         text-shadow: 2px 2px 4px #000000;
     }
 </style>
+<h4>Join @ViewData["Kingdoms"] kingdoms already registered!</h4>
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -73,7 +78,7 @@ h
     <div class="col-md-4">
         <h2>Create your Team!</h2>
         <ul>
-            <li>Only a few will survive</li>            
+            <li><a asp-area="" asp-controller="DeadPoolSelection" asp-action="Index">Only a few will survive</a></li>            
         </ul>
     </div>
     <div class="col-md-4">
@@ -86,8 +91,9 @@ h
     <div class="col-md-3">
         <h2>Track who lives and dies</h2>
         <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Current Leader Boards</a></li>
-            <li>@Html.ActionLink("Setup Characters", "Index", "SetupCharacters")</li>
+            <li>View the current leaderboard!</li>
+            <li><a asp-area="" asp-controller="SetupCharacters" asp-action="Index">View the Status of characters from the show!</a></li>
+            <li><a asp-area="" asp-controller="DeadPoolSelection" asp-action="Index">Setup My DeathPool!</a></li>
         </ul>
     </div>
 </div>

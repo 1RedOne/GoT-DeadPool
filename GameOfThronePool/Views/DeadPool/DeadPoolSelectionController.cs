@@ -65,6 +65,19 @@ namespace GameOfThronePool.Views.DeadPool
             }            
             return View(userRecords);
         }
+
+        [HttpPost]
+        public ActionResult Index(List<UserCharacterSelection> changedRecords)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (UserCharacterSelection record in changedRecords)
+                {
+                    System.Diagnostics.Debug.WriteLine("updating status of character " + record.CharacterName);
+                }
+            }
+            return RedirectToAction("Index");
+        }
         [Authorize]
         // GET: DeadPoolSelection/Details/5
         public async Task<IActionResult> Details(int? id)

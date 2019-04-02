@@ -8,51 +8,66 @@
     string name = (userEntity.UserFriendlyName != null) ? userEntity.UserFriendlyName : username;
 
 }
+<style>
+    h2, h3, body, jumbotron {
+
+        font-family: OFL Sorts Mill Goudy, Noto Nastaliq Urdu, My Noto Nastaliq Urdu, Georgia, serif;
+    }
+</style>
+<br />
 
 <h2>My Deathpool</h2>
 <div class="jumbotron">
     <h3>
-        @name, Setup your Deathpool Predictions!<br /> You can change these until <font color="yellow">April 17th, 2019</font>
+        @name, use this space to setup your Deathpool Predictions!<br /> You can change these until <font color="yellow">April 17th, 2019</font>
     </h3>
 </div>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CharacterName)
-            </th>
-            <th>
-                Alive or Dead by the last Episode?
-            </th>
-            <th>
-                Do they become a White Walker?
-            </th>            
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@using (@Html.BeginForm("Index", "DeadPoolSelection", FormMethod.Post))
+{
+    <table class="table">
+        <thead>
             <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CharacterName)
+                </th>
+                <th>
+                    Alive or Dead by the last Episode?
+                </th>
+                <th>
+                    Do they become a White Walker?
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                @Html.HiddenFor(modelItem => item.UserCharacterSelectionID)
+                @Html.HiddenFor(modelItem => item.CharacterID)
                 <td>
                     @Html.DisplayFor(modelItem => item.CharacterName)
+                    @Html.HiddenFor(modelItem => item.CharacterName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AliveStatus)
+                    <input type="checkbox" data-toggle="toggle" data-on="Alive" data-off="Dead" id="AliveStatus" name="AliveStatus" checked="@item.AliveStatus" data-onstyle="success" data-offstyle="danger">
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BecomesAWhiteWalker)
+                    <input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" id="BecomesAWhiteWalker" name="BecomesAWhiteWalker" checked="@item.BecomesAWhiteWalker" data-onstyle="info" data-offstyle="danger">
+                    @Html.HiddenFor(modelItem => item.CreatedDate)
+                    @Html.HiddenFor(modelItem => item.UserName)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.UserCharacterSelectionID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.UserCharacterSelectionID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.UserCharacterSelectionID">Delete</a>
+                   <a asp-action="Edit" asp-route-id="@item.UserCharacterSelectionID">Edit</a>
                 </td>
             </tr>
-        }
-    </tbody>
-</table>
+            }
+        </tbody>
+    </table>
+    <p><input type="submit" value="Save Changes" class="btn btn-default" /></p>
+    <p style="color:green; font-size:12px;">@ViewBag.Message</p>
+}
