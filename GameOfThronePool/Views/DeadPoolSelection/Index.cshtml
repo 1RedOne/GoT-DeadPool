@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GameOfThronePool.Models.UserCharacterSelection>
+﻿@model List<GameOfThronePool.Models.UserCharacterSelection>
 @inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Index";
@@ -10,7 +10,6 @@
 }
 <style>
     h2, h3, body, jumbotron {
-
         font-family: OFL Sorts Mill Goudy, Noto Nastaliq Urdu, My Noto Nastaliq Urdu, Georgia, serif;
     }
 </style>
@@ -23,51 +22,48 @@
     </h3>
 </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-@using (@Html.BeginForm("Index", "DeadPoolSelection", FormMethod.Post))
+@using (@Html.BeginForm("PostUpdate", "DeadPoolSelection"))
 {
     <table class="table">
-        <thead>
+        <tr>
+            <th>
+                Character Name
+            </th>
+            <th>
+                Alive or Dead by the last Episode?
+            </th>
+            <th>
+                Do they become a White Walker?
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CharacterName)
-                </th>
-                <th>
-                    Alive or Dead by the last Episode?
-                </th>
-                <th>
-                    Do they become a White Walker?
-                </th>
-                <th></th>
+                <div class="form-group">
+                    <td>
+                        @Html.HiddenFor(modelItem => item.UserCharacterSelectionID)
+                        @Html.HiddenFor(modelItem => item.CharacterID)
+                        @Html.DisplayFor(modelItem => item.CharacterName)
+                        @Html.HiddenFor(modelItem => item.CharacterName)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => item.AliveStatus)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => item.BecomesAWhiteWalker)
+                        @Html.HiddenFor(modelItem => item.CreatedDate)
+                        @Html.HiddenFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.UserCharacterSelectionID">Edit</a>
+                    </td>
+                </div>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                @Html.HiddenFor(modelItem => item.UserCharacterSelectionID)
-                @Html.HiddenFor(modelItem => item.CharacterID)
-                <td>
-                    @Html.DisplayFor(modelItem => item.CharacterName)
-                    @Html.HiddenFor(modelItem => item.CharacterName)
-                </td>
-                <td>
-                    <input type="checkbox" data-toggle="toggle" data-on="Alive" data-off="Dead" id="AliveStatus" name="AliveStatus" checked="@item.AliveStatus" data-onstyle="success" data-offstyle="danger">
-                </td>
-                <td>
-                    <input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" id="BecomesAWhiteWalker" name="BecomesAWhiteWalker" checked="@item.BecomesAWhiteWalker" data-onstyle="info" data-offstyle="danger">
-                    @Html.HiddenFor(modelItem => item.CreatedDate)
-                    @Html.HiddenFor(modelItem => item.UserName)
-                </td>
-                <td>
-                   <a asp-action="Edit" asp-route-id="@item.UserCharacterSelectionID">Edit</a>
-                </td>
-            </tr>
-            }
-        </tbody>
+        }
+
     </table>
-    <p><input type="submit" value="Save Changes" class="btn btn-default" /></p>
-    <p style="color:green; font-size:12px;">@ViewBag.Message</p>
+
+<p><input type="submit" value="Save Changes" class="btn btn-default" /></p>
+<p style="color:green; font-size:12px;">@ViewBag.Message</p>
 }

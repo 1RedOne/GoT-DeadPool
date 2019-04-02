@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using GameOfThronePool.Data;
 using GameOfThronePool.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace GameOfThronePool.Views.DeadPool
 {
@@ -42,13 +43,13 @@ namespace GameOfThronePool.Views.DeadPool
             _context.SaveChanges();
             return;
         }
-
+        [HttpGet]
         [Authorize]
         // GET: DeadPoolSelection
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(List<UserCharacterSelection> userRecords)
         {
             string username = HttpContext.User.Identity.Name;
-            List<UserCharacterSelection> userRecords = await _context.UserCharacterSelection.AsQueryable().
+            userRecords = await _context.UserCharacterSelection.AsQueryable().
                 Where(m => m.UserName.Equals(username)).ToListAsync();
             
             if (userRecords.Any()){
@@ -65,12 +66,26 @@ namespace GameOfThronePool.Views.DeadPool
             }            
             return View(userRecords);
         }
-
+        [Authorize]
         [HttpPost]
-        public ActionResult Index(List<UserCharacterSelection> changedRecords)
+        public async Task<IActionResult> PostUpdate(List<UserCharacterSelection> changedRecords, IFormCollection form)
         {
+            int itemCount = form["item.UserCharacterSelectionID"].ToString().Split(",").Count();
             if (ModelState.IsValid)
             {
+                for (int i = 0; i < itemCount; i++)
+                {
+                    int thisID = Convert.ToInt32(form["item.UserCharacterSelectionID"].ToString().Split(",")[i]);
+                    UserCharacterSelection userCharacterSelection = _context.UserCharacterSelection.Where(m => thisID.Equals(m.UserCharacterSelectionID)).FirstOrDefault();
+                    //to do, populate and update fields which changed
+
+                    //to do, add cooler checkboxes back
+                
+                    //use this syntax to update!
+                    //_context.Update(userCharacterSelection);
+                    //await _context.SaveChangesAsync();
+                }
+            
                 foreach (UserCharacterSelection record in changedRecords)
                 {
                     System.Diagnostics.Debug.WriteLine("updating status of character " + record.CharacterName);
@@ -141,7 +156,7 @@ namespace GameOfThronePool.Views.DeadPool
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserID,UserCharacterSelectionID,CharacterID,CharacterName,AliveStatus,BecomesAWhiteWalker,CreatedDate")] UserCharacterSelection userCharacterSelection)
+        public async Task<IActionResult> Edit(int id, [Bind("UserName,UserCharacterSelectionID,CharacterID,CharacterName,AliveStatus,BecomesAWhiteWalker,CreatedDate")] UserCharacterSelection userCharacterSelection)
         {
             if (id != userCharacterSelection.UserCharacterSelectionID)
             {
