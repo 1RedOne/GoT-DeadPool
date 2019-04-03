@@ -9,6 +9,7 @@ using GameOfThronePool.Data;
 using GameOfThronePool.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameOfThronePool.Views
 {
@@ -20,7 +21,7 @@ namespace GameOfThronePool.Views
         {
             _context = context;
         }
-
+        [Authorize]
         // GET: ShowCharacterStatusRecords
         public async Task<IActionResult> Index()
         {
@@ -43,7 +44,7 @@ namespace GameOfThronePool.Views
         {
             return View(await _context.ShowCharacterStatusRecord.ToListAsync());
         }
-
+        [Authorize]
         // GET: ShowCharacterStatusRecords/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -61,13 +62,13 @@ namespace GameOfThronePool.Views
 
             return View(showCharacterStatusRecord);
         }
-
+        [Authorize]
         // GET: ShowCharacterStatusRecords/Create
         public IActionResult Create()
         {
             return View();
         }
-
+        [Authorize]
         // POST: ShowCharacterStatusRecords/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -86,7 +87,7 @@ namespace GameOfThronePool.Views
             }
             return View(showCharacterStatusRecord);
         }
-
+        [Authorize]
         // GET: ShowCharacterStatusRecords/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -102,7 +103,7 @@ namespace GameOfThronePool.Views
             }
             return View(showCharacterStatusRecord);
         }
-
+        [Authorize]
         // POST: ShowCharacterStatusRecords/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -138,7 +139,7 @@ namespace GameOfThronePool.Views
             }
             return View(showCharacterStatusRecord);
         }
-
+        [Authorize]
         // GET: ShowCharacterStatusRecords/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -156,7 +157,7 @@ namespace GameOfThronePool.Views
 
             return View(showCharacterStatusRecord);
         }
-
+        [Authorize]
         // POST: ShowCharacterStatusRecords/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

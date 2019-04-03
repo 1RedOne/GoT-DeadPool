@@ -10,57 +10,56 @@
     <meta name="viewport" content="width=device-width" />
     <title>Edit</title>
 </head>
-
-
-    <h4>Editting @Model.CharacterName</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="ShowCharacterStatusRecordID" />
-                <div class="form-group">
-                    <label asp-for="CharacterName" class="control-label"></label>
-                    <input asp-for="CharacterName" class="form-control" readonly/>
-                    <span asp-validation-for="CharacterName" class="text-danger"></span>
+    
+<h4>Editting @Model.CharacterName</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ShowCharacterStatusRecordID" />
+            <div class="form-group">
+                <label asp-for="CharacterName" class="control-label"></label>
+                <input asp-for="CharacterName" class="form-control" readonly />
+                <span asp-validation-for="CharacterName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        @*<input asp-for="AliveStatus" /> @Html.DisplayNameFor(model => model.AliveStatus)*@
+                    </label>
                 </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            @*<input asp-for="AliveStatus" /> @Html.DisplayNameFor(model => model.AliveStatus)*@
-                        </label>
-                    </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-toggle="toggle" data-on="Alive" data-off="Dead" id="AliveStatus" name="AliveStatus" checked=@Model.AliveStatus>Do they live or die?
+                    </label>
                 </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" data-toggle="toggle" data-on="Alive" data-off="Dead" id="AliveStatus" name="AliveStatus" checked=@Model.AliveStatus>Do they live or die?
-                        </label>
-                    </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-toggle="toggle" data-on="WhiteWalker" data-off="No" id="WhiteWalkerStatus" name="WhiteWalkerStatus" checked=@Model.WhiteWalkerStatus> @Html.DisplayNameFor(model => model.WhiteWalkerStatus)
+                    </label>
                 </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" data-toggle="toggle" data-on="WhiteWalker" data-off="No" id="WhiteWalkerStatus" name="WhiteWalkerStatus" checked=@Model.WhiteWalkerStatus> @Html.DisplayNameFor(model => model.WhiteWalkerStatus)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CharacterDiedEpisodeNo" class="control-label"></label>
-                    <input asp-for="CharacterDiedEpisodeNo" class="form-control" />
-                    <span asp-validation-for="CharacterDiedEpisodeNo" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CharacterDiedEpisodeNo" class="control-label"></label>
+                <input asp-for="CharacterDiedEpisodeNo" class="form-control" />
+                <span asp-validation-for="CharacterDiedEpisodeNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
     </div>
+</div>
 
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

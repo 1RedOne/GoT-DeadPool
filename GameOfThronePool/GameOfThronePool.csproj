@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>aspnet-GameOfThronePool-6BA6C852-53D0-47DF-80A7-45DA3170EEE1</UserSecretsId>
+    <Configurations>Debug;Release;Azure</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

@@ -4,8 +4,11 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <hr />
 <h2>Decide the fate of @Model.CharacterName</h2>
+
+
 
 
 <hr />
@@ -16,7 +19,7 @@
             <input type="hidden" asp-for="UserName" />
             <input type="hidden" asp-for="UserCharacterSelectionID" />
             <input type="hidden" asp-for="CharacterID" />
-            <input type="hidden" asp-for="CharacterName" />            
+            <input type="hidden" asp-for="CharacterName" />
             <div class="form-group">
                 <div class="checkbox">
                     <label>
