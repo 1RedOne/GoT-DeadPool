@@ -20,4 +20,15 @@ namespace GameOfThronePool.Models
         public DateTime CreatedDate { get; set; }
         
     }
+
+    public class UserBonusQuestion
+    {
+        public int UserBonusQuestionID { get; set; }
+        public string UserName { get; set; }
+        public int QuestionNumber { get; set; }
+        public string QuestionText { get; set; }
+        public string QuestionAnswer { get; set; }
+        public bool Correct { get; set; }
+
+    }
 }

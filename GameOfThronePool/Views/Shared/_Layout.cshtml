@@ -49,6 +49,7 @@
                 </div>
             </div>
         </nav>
+        @RenderSection("Scripts", required: false)
         <div class="container body-content">
             <br /><br />
             @RenderBody()
@@ -79,7 +80,7 @@
             <script src="~/js/site.min.js" asp-append-version="true"></script>
         </environment>
 
-        @RenderSection("Scripts", required: false)
+        
     </body>
 </html>
 <link href="~/css/bootstrap-toggle.css" rel="stylesheet" />

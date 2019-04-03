@@ -21,27 +21,27 @@
                 <input type="hidden" asp-for="ShowCharacterStatusRecordID" />
                 <div class="form-group">
                     <label asp-for="CharacterName" class="control-label"></label>
-                    <input asp-for="CharacterName" class="form-control" />
+                    <input asp-for="CharacterName" class="form-control" readonly/>
                     <span asp-validation-for="CharacterName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
                         <label>
-                            <input asp-for="AliveStatus" /> @Html.DisplayNameFor(model => model.AliveStatus)
+                            @*<input asp-for="AliveStatus" /> @Html.DisplayNameFor(model => model.AliveStatus)*@
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" data-toggle="toggle" data-on="Alive" data-off="Dead" id="AliveStatus" name="AliveStatus">
+                            <input type="checkbox" data-toggle="toggle" data-on="Alive" data-off="Dead" id="AliveStatus" name="AliveStatus" checked=@Model.AliveStatus>Do they live or die?
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
                         <label>
-                            <input asp-for="WhiteWalkerStatus" /> @Html.DisplayNameFor(model => model.WhiteWalkerStatus)
+                            <input type="checkbox" data-toggle="toggle" data-on="WhiteWalker" data-off="No" id="WhiteWalkerStatus" name="WhiteWalkerStatus" checked=@Model.WhiteWalkerStatus> @Html.DisplayNameFor(model => model.WhiteWalkerStatus)
                         </label>
                     </div>
                 </div>

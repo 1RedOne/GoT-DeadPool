@@ -1,0 +1,45 @@
+﻿@model IEnumerable<GameOfThronePool.Models.UserBonusQuestion>
+
+<h2>Answer these questions for bonus points!</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionAnswer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Correct)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionAnswer)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Correct)*@?
+            </td>
+            <td>
+                
+                <a asp-action="Edit" asp-route-id="@item.UserBonusQuestionID">Set Answer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

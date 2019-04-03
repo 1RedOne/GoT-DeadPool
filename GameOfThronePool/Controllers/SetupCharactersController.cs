@@ -108,13 +108,14 @@ namespace GameOfThronePool.Views
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ShowCharacterStatusRecordID,CharacterName,AliveStatus,WhiteWalkerStatus,CharacterDiedEpisodeNo,CreatedDate")] ShowCharacterStatusRecord showCharacterStatusRecord)
+        public async Task<IActionResult> Edit(int id, [Bind("ShowCharacterStatusRecordID,CharacterName,CharacterDiedEpisodeNo,CreatedDate")] ShowCharacterStatusRecord showCharacterStatusRecord, IFormCollection form)
         {
             if (id != showCharacterStatusRecord.ShowCharacterStatusRecordID)
             {
                 return NotFound();
             }
-
+            showCharacterStatusRecord.AliveStatus = (form["AliveStatus"] == "on") ? true : false;
+            showCharacterStatusRecord.WhiteWalkerStatus = (form["WhiteWalkerStatus"] == "on") ? true : false;
             if (ModelState.IsValid)
             {
                 try

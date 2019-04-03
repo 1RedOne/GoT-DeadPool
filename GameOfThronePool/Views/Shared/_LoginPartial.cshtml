@@ -4,10 +4,14 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @{
-    string username = @UserManager.GetUserName(User);
-    var userEntity = await @UserManager.FindByNameAsync(username);
-    string name = (userEntity.UserFriendlyName != null) ? userEntity.UserFriendlyName : username;
-}
+    string username = "null";
+    string name = "null";
+    @if (SignInManager.IsSignedIn(User)) {
+        username = @UserManager.GetUserName(User);
+        var userEntity = await @UserManager.FindByNameAsync(username);
+        name = (userEntity.UserFriendlyName != null) ? userEntity.UserFriendlyName : username;
+    }
+    }
 
 @if (SignInManager.IsSignedIn(User))
 {

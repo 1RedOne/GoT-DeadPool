@@ -12,6 +12,21 @@
     h2, h3, body, jumbotron {
         font-family: OFL Sorts Mill Goudy, Noto Nastaliq Urdu, My Noto Nastaliq Urdu, Georgia, serif;
     }
+
+    .alive {
+        color: darkolivegreen;
+        text-shadow: 2px 2px 4px #000000;
+    }
+
+    .dead {
+        color: darkred;
+        text-shadow: 2px 2px 4px #000000;
+    }
+
+    .whitewalker {
+        color: darkslateblue;
+        text-shadow: 2px 2px 4px #FFFFFF;
+    }
 </style>
 <br />
 
@@ -40,30 +55,33 @@
         @foreach (var item in Model)
         {
             <tr>
-                <div class="form-group">
-                    <td>
-                        @Html.HiddenFor(modelItem => item.UserCharacterSelectionID)
-                        @Html.HiddenFor(modelItem => item.CharacterID)
-                        @Html.DisplayFor(modelItem => item.CharacterName)
-                        @Html.HiddenFor(modelItem => item.CharacterName)
-                    </td>
-                    <td>
-                        @Html.EditorFor(modelItem => item.AliveStatus)
-                    </td>
-                    <td>
-                        @Html.EditorFor(modelItem => item.BecomesAWhiteWalker)
-                        @Html.HiddenFor(modelItem => item.CreatedDate)
-                        @Html.HiddenFor(modelItem => item.UserName)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.UserCharacterSelectionID">Edit</a>
-                    </td>
-                </div>
+                <td>
+                    @Html.HiddenFor(modelItem => item.UserCharacterSelectionID, new { @Name = "[" + item.UserCharacterSelectionID + "]_UserCharacterSelectionID" })
+                    @Html.HiddenFor(modelItem => item.CharacterID, new { @Name = "[" + item.UserCharacterSelectionID + "]_CharacterID" })
+                    @Html.DisplayFor(modelItem => item.CharacterName, new { @Name = "[" + item.UserCharacterSelectionID + "]_CharacterName" })
+                </td>
+                <td>
+                    @if (item.AliveStatus)
+                    {<div class="alive">Alive</div> }
+                    else
+                    { <div class="dead">Dead</div>}
+                </td>
+                <td>
+                    @if (item.BecomesAWhiteWalker)
+                    {<div class="whitewalker">Wight</div> }
+                    else
+                    { <div class="dead">☠</div>}
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.UserCharacterSelectionID">Edit</a>
+                </td>
             </tr>
         }
 
     </table>
 
-<p><input type="submit" value="Save Changes" class="btn btn-default" /></p>
-<p style="color:green; font-size:12px;">@ViewBag.Message</p>
+    <p style="color:green; font-size:12px;">@ViewBag.Message</p>
 }
+@await Component.InvokeAsync("MyBonusQuestions", new { UserName = User})
+
+

@@ -1,0 +1,49 @@
+﻿@model GameOfThronePool.Models.UserBonusQuestion
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserBonusQuestion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.QuestionNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.QuestionNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.QuestionText)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.QuestionText)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.QuestionAnswer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.QuestionAnswer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Correct)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Correct)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.UserBonusQuestionID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

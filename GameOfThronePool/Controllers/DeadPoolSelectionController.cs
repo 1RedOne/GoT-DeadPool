@@ -43,6 +43,42 @@ namespace GameOfThronePool.Views.DeadPool
             _context.SaveChanges();
             return;
         }
+
+        public void StageNewUserQuestions(string UserName)
+        {
+            UserBonusQuestion newUserBonusQuestion = new UserBonusQuestion
+            {
+                UserName = UserName,
+                QuestionNumber = 1,
+                QuestionText = "Is Daenerys (Khaleesi) pregnant?",
+                QuestionAnswer = null
+            };
+
+            _context.UserBonusQuestion.Add(newUserBonusQuestion);
+
+            newUserBonusQuestion = new UserBonusQuestion
+            {
+                UserName = UserName,
+                QuestionNumber = 2,
+                QuestionText = "Who kills the Night King?",
+                QuestionAnswer = null
+            };
+
+            _context.UserBonusQuestion.Add(newUserBonusQuestion);
+
+            newUserBonusQuestion = new UserBonusQuestion
+            {
+                UserName = UserName,
+                QuestionNumber = 3,
+                QuestionText = "Who will hold the Iron Throne at the end?",
+                QuestionAnswer = null
+            };
+
+            _context.UserBonusQuestion.Add(newUserBonusQuestion);
+
+            _context.SaveChanges();
+            return;
+        }
         [HttpGet]
         [Authorize]
         // GET: DeadPoolSelection
@@ -51,7 +87,9 @@ namespace GameOfThronePool.Views.DeadPool
             string username = HttpContext.User.Identity.Name;
             userRecords = await _context.UserCharacterSelection.AsQueryable().
                 Where(m => m.UserName.Equals(username)).ToListAsync();
-            
+
+            List<UserBonusQuestion> userQuestions = await _context.UserBonusQuestion.AsQueryable().
+                Where(m => m.UserName.Equals(username)).ToListAsync();
             if (userRecords.Any()){
                 //found records
                 Console.WriteLine("found records");
@@ -63,12 +101,27 @@ namespace GameOfThronePool.Views.DeadPool
                 Console.WriteLine("setting up user records");
                 userRecords = await _context.UserCharacterSelection.AsQueryable().
                                 Where(m => m.UserName.Equals(username)).ToListAsync();
-            }            
+            }
+
+            if (userQuestions.Any())
+            {
+                //found records
+                Console.WriteLine("found questions records");
+            }
+            else
+            {
+                //found no records
+                StageNewUserQuestions(username);
+                Console.WriteLine("setting up user records");
+                userQuestions = await _context.UserBonusQuestion.AsQueryable().
+                    Where(m => m.UserName.Equals(username)).ToListAsync();
+            }
+
             return View(userRecords);
         }
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> PostUpdate(List<UserCharacterSelection> changedRecords, IFormCollection form)
+        public async Task<IActionResult> PostUpdate(ICollection<UserCharacterSelection> UserCharacterSelections, IFormCollection form)
         {
             int itemCount = form["item.UserCharacterSelectionID"].ToString().Split(",").Count();
             if (ModelState.IsValid)
@@ -78,15 +131,17 @@ namespace GameOfThronePool.Views.DeadPool
                     int thisID = Convert.ToInt32(form["item.UserCharacterSelectionID"].ToString().Split(",")[i]);
                     UserCharacterSelection userCharacterSelection = _context.UserCharacterSelection.Where(m => thisID.Equals(m.UserCharacterSelectionID)).FirstOrDefault();
                     //to do, populate and update fields which changed
-
+                    userCharacterSelection.CreatedDate = DateTime.Now;
+                    userCharacterSelection.AliveStatus = (form["item.AliveStatus"].ToString().Split(",")[i] == "true") ? true : false;
+                    userCharacterSelection.BecomesAWhiteWalker = (form["item.BecomesAWhiteWalker"].ToString().Split(",")[i] == "true") ? true : false;
                     //to do, add cooler checkboxes back
-                
+
                     //use this syntax to update!
                     //_context.Update(userCharacterSelection);
                     //await _context.SaveChangesAsync();
                 }
-            
-                foreach (UserCharacterSelection record in changedRecords)
+
+                foreach (UserCharacterSelection record in UserCharacterSelections)
                 {
                     System.Diagnostics.Debug.WriteLine("updating status of character " + record.CharacterName);
                 }
@@ -156,13 +211,14 @@ namespace GameOfThronePool.Views.DeadPool
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserName,UserCharacterSelectionID,CharacterID,CharacterName,AliveStatus,BecomesAWhiteWalker,CreatedDate")] UserCharacterSelection userCharacterSelection)
+        public async Task<IActionResult> Edit(int id, [Bind("UserName,UserCharacterSelectionID,CharacterID,CharacterName,CreatedDate")] UserCharacterSelection userCharacterSelection, IFormCollection form)
         {
             if (id != userCharacterSelection.UserCharacterSelectionID)
             {
                 return NotFound();
             }
-
+            userCharacterSelection.AliveStatus = (form["AliveStatus"] == "on") ? true : false;
+            userCharacterSelection.BecomesAWhiteWalker = (form["BecomesAWhiteWalker"] == "on") ? true : false;
             if (ModelState.IsValid)
             {
                 try

@@ -27,8 +27,7 @@ namespace GameOfThronePool.Data
 
 
         public DbSet<GameOfThronePool.Models.ShowCharacterStatusRecord> ShowCharacterStatusRecord { get; set; }
-
-
         public DbSet<GameOfThronePool.Models.UserCharacterSelection> UserCharacterSelection { get; set; }
+        public DbSet<GameOfThronePool.Models.UserBonusQuestion> UserBonusQuestion { get; set; }
     }
 }
