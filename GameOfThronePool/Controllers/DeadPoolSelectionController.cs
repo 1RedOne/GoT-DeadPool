@@ -25,6 +25,58 @@ namespace GameOfThronePool.Views.DeadPool
         {
             return _context.ShowCharacterStatusRecord.ToList();
         }
+        public async Task<JsonResult> SetStatusForCharAsync(int id, string Property, bool Value)
+        {
+            var userCharacterSelection = await _context.UserCharacterSelection.FindAsync(id);
+            string username = HttpContext.User.Identity.Name;
+            
+            if (userCharacterSelection == null)
+            {
+                return Json(new
+                {
+                    status = "recordNotFound"                    
+                });
+            }
+            if (userCharacterSelection.UserName != username) {
+                return Json(new { status = "Cannot edit someone elses record",
+                    youAre = username,
+                    recordBelongsTo = userCharacterSelection.UserName,
+                    InputProperty = Property,
+                    InputValue = Value,
+                    InputID = id
+                    }
+                );
+            }else
+            {
+                //if toggling the alive state
+                if (Property ==  "AliveStatus")
+                {
+                    userCharacterSelection.AliveStatus = Value;                    
+                }
+
+                //if toggling the white walker state
+                if (Property == "BecomesAWhiteWalker")
+                {
+                    userCharacterSelection.BecomesAWhiteWalker = Value;
+                }
+
+                try
+                {
+                    _context.Update(userCharacterSelection);
+                    await _context.SaveChangesAsync();
+                }
+                catch
+                {
+                    return Json(NotFound());
+                }
+                return Json(userCharacterSelection);
+            }
+            /*if (HttpContext.User)
+
+            return Json(userCharacterSelection);*/
+            
+        }
+
 
         public void StageNewUser(string UserName)
         {

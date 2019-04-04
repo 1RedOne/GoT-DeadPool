@@ -50,15 +50,6 @@
         </div>
     </nav>
 
-    <div class="container body-content">
-        <br /><br />
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2019 - FoxDeploy</p>
-        </footer>
-    </div>
-
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -80,8 +71,18 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
     @RenderSection("Scripts", required: false)
+    <div class="container body-content">
+        <br /><br />
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2019 - FoxDeploy</p>
+        </footer>
+    </div>
+
+
 
 </body>
 </html>
-<link href="~/css/bootstrap-toggle.css" rel="stylesheet" />
+
 
