@@ -9,16 +9,19 @@ using GameOfThronePool.Data;
 using GameOfThronePool.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace GameOfThronePool.Views.DeadPool
 {
     public class DeadPoolSelectionController : Controller
     {
         private readonly DeadPoolDBContext _context;
-
-        public DeadPoolSelectionController(DeadPoolDBContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private string[] admins = new string[] { "stephen@foxdeploy.com", "sred13@gmail.com" };
+        public DeadPoolSelectionController(DeadPoolDBContext context, UserManager<ApplicationUser> userManager)
         {
-            _context = context;           
+            _context = context;
+            _userManager = userManager;
         }
         //internal methods
         public IEnumerable<ShowCharacterStatusRecord> GetAllCharacters()
@@ -27,8 +30,13 @@ namespace GameOfThronePool.Views.DeadPool
         }
         public async Task<JsonResult> SetStatusForCharAsync(int id, string Property, bool Value)
         {
-            var userCharacterSelection = await _context.UserCharacterSelection.FindAsync(id);
             string username = HttpContext.User.Identity.Name;
+
+            if (!(admins.Contains(username))){
+                return Json(new { status = "blocked, registrations are closed!" });
+            }
+
+            var userCharacterSelection = await _context.UserCharacterSelection.FindAsync(id);
             
             if (userCharacterSelection == null)
             {
@@ -131,6 +139,41 @@ namespace GameOfThronePool.Views.DeadPool
             _context.SaveChanges();
             return;
         }
+        [HttpPost]
+        [Authorize]
+        public ActionResult Restage()
+        {
+            var users = _userManager.Users.ToList();
+            int Restaged = 0;
+            foreach (var user in users)
+            {
+                List<UserCharacterSelection> userRecords =  _context.UserCharacterSelection.AsQueryable().
+                Where(m => m.UserName.Equals(user.UserName)).ToList();
+
+                List<UserBonusQuestion> userQuestions = _context.UserBonusQuestion.AsQueryable().
+                    Where(m => m.UserName.Equals(user.UserName)).ToList();
+                if (!userRecords.Any())
+                {
+                    //found no records
+                    StageNewUser(user.UserName);
+                    Restaged = 1;
+                }
+
+                if (!userQuestions.Any())
+                {
+                    //found no records
+                    StageNewUserQuestions(user.UserName);
+                    Restaged = 1;
+                }
+
+            }
+            if (Restaged == 1)
+            {
+                TempData["Message"] = "Created missing Records for users...";
+            }            
+            return RedirectToAction("Update", "ScoreBoard");
+        }
+
         [HttpGet]
         [Authorize]
         // GET: DeadPoolSelection
@@ -171,6 +214,23 @@ namespace GameOfThronePool.Views.DeadPool
 
             return View(userRecords);
         }
+
+        [HttpGet]
+        [Authorize]
+        // GET: DeadPoolSelection
+        public async Task<IActionResult> ViewOnly(int UserScoreRecordID)
+        {
+            var UserScoreRecord = _context.UserScoreRecord.AsQueryable().
+                Where(m => m.UserScoreRecordID.Equals(UserScoreRecordID)).FirstOrDefault();
+            string username = UserScoreRecord.UserName;
+            string friendlyName = UserScoreRecord.UserFriendlyName;
+            List<UserCharacterSelection> userRecords = await _context.UserCharacterSelection.AsQueryable().
+                Where(m => m.UserName.Equals(username)).ToListAsync();
+            ViewBag.FriendlyName = friendlyName;
+            return View(userRecords);
+        }
+
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostUpdate(ICollection<UserCharacterSelection> UserCharacterSelections, IFormCollection form)
@@ -224,6 +284,7 @@ namespace GameOfThronePool.Views.DeadPool
         {
             return View();
         }
+        /*
         [Authorize]
         // POST: DeadPoolSelection/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -293,7 +354,7 @@ namespace GameOfThronePool.Views.DeadPool
             }
             return View(userCharacterSelection);
         }
-
+        /*
         // GET: DeadPoolSelection/Delete/5
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
@@ -324,7 +385,7 @@ namespace GameOfThronePool.Views.DeadPool
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        */
         private bool UserCharacterSelectionExists(int id)
         {
             return _context.UserCharacterSelection.Any(e => e.UserCharacterSelectionID == id);

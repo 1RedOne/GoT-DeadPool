@@ -89,6 +89,7 @@ namespace GameOfThronePool.Views.DeadPoolSelection
         // GET: UserBonusQuestions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.HasPrivilege = false;
             if (id == null)
             {
                 return NotFound();
@@ -98,6 +99,12 @@ namespace GameOfThronePool.Views.DeadPoolSelection
             if (userBonusQuestion == null)
             {
                 return NotFound();
+            }
+
+            string username = HttpContext.User.Identity.Name;
+            if (admins.Contains(username))
+            {
+                ViewBag.HasPrivilege = true;
             }
             return View(userBonusQuestion);
         }
@@ -114,7 +121,7 @@ namespace GameOfThronePool.Views.DeadPoolSelection
                 return NotFound();
             }
             string username = HttpContext.User.Identity.Name;
-            if (admins.Contains(username) | username.Equals(userBonusQuestion.UserName))
+            if (admins.Contains(username))
             {
                 if (ModelState.IsValid)
                 {
@@ -144,7 +151,7 @@ namespace GameOfThronePool.Views.DeadPoolSelection
             return View(userBonusQuestion);
         }
 
-        // GET: UserBonusQuestions/Delete/5
+        /*/ GET: UserBonusQuestions/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -172,7 +179,7 @@ namespace GameOfThronePool.Views.DeadPoolSelection
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        */
         private bool UserBonusQuestionExists(int id)
         {
             return _context.UserBonusQuestion.Any(e => e.UserBonusQuestionID == id);

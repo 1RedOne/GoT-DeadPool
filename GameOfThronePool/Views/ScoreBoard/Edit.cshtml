@@ -1,0 +1,57 @@
+﻿@model GameOfThronePool.Models.UserScoreRecord
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>UserScoreRecord</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UserScoreRecordID" />
+            <div class="form-group">
+                <label asp-for="UserFriendlyName" class="control-label"></label>
+                <input asp-for="UserFriendlyName" class="form-control" />
+                <span asp-validation-for="UserFriendlyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseScore" class="control-label"></label>
+                <input asp-for="BaseScore" class="form-control" />
+                <span asp-validation-for="BaseScore" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="BonusScore" /> @Html.DisplayNameFor(model => model.BonusScore)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalScore" class="control-label"></label>
+                <input asp-for="TotalScore" class="form-control" />
+                <span asp-validation-for="TotalScore" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,4 +1,4 @@
-﻿@model GameOfThronePool.Models.UserCharacterSelection
+﻿@model GameOfThronePool.Models.UserScoreRecord
 
 @{
     ViewData["Title"] = "Create";
@@ -7,40 +7,33 @@
 
 <h2>Create</h2>
 
-<h4>UserCharacterSelection</h4>
+<h4>UserScoreRecord</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
+                <label asp-for="UserFriendlyName" class="control-label"></label>
+                <input asp-for="UserFriendlyName" class="form-control" />
+                <span asp-validation-for="UserFriendlyName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CharacterID" class="control-label"></label>
-                <input asp-for="CharacterID" class="form-control" />
-                <span asp-validation-for="CharacterID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CharacterName" class="control-label"></label>
-                <input asp-for="CharacterName" class="form-control" />
-                <span asp-validation-for="CharacterName" class="text-danger"></span>
+                <label asp-for="BaseScore" class="control-label"></label>
+                <input asp-for="BaseScore" class="form-control" />
+                <span asp-validation-for="BaseScore" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="AliveStatus" /> @Html.DisplayNameFor(model => model.AliveStatus)
+                        <input asp-for="BonusScore" /> @Html.DisplayNameFor(model => model.BonusScore)
                     </label>
                 </div>
             </div>
             <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="BecomesAWhiteWalker" /> @Html.DisplayNameFor(model => model.BecomesAWhiteWalker)
-                    </label>
-                </div>
+                <label asp-for="TotalScore" class="control-label"></label>
+                <input asp-for="TotalScore" class="form-control" />
+                <span asp-validation-for="TotalScore" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CreatedDate" class="control-label"></label>

@@ -1,0 +1,82 @@
+﻿@model List<GameOfThronePool.Models.UserCharacterSelection>
+@inject UserManager<ApplicationUser> UserManager
+@{
+    string friendlyName = ViewBag.FriendlyName;
+    ViewData["Title"] = "GoT 2019 - Viewing " + friendlyName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h2, h3, body, jumbotron {
+        font-family: OFL Sorts Mill Goudy, Noto Nastaliq Urdu, My Noto Nastaliq Urdu, Georgia, serif;
+    }
+
+    .alive {
+        color: darkolivegreen;
+        text-shadow: 2px 2px 4px #000000;
+    }
+
+    .dead {
+        color: darkred;
+        text-shadow: 2px 2px 4px #000000;
+    }
+
+    .whitewalker {
+        color: darkslateblue;
+        text-shadow: 2px 2px 4px #FFFFFF;
+    }
+
+    .pending {
+        background: url('../../images/cube-1s-30px.gif') no-repeat right center;
+    }
+
+    .checkbox-inline {
+        width: 140px;
+        transition: 0.5s
+    }
+</style>
+<br />
+<h2>
+    Viewing the selections of @friendlyName
+</h2>
+
+<link href="~/css/bootstrap-toggle.css" rel="stylesheet" />
+
+<table class="table">
+    <tr>
+        <th>
+            Character Name
+        </th>
+        <th>
+            Alive or Dead by the last Episode?
+        </th>
+        <th>
+            Do they become a White Walker?
+        </th>
+    </tr>
+    @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CharacterName, new { @Name = "[" + item.UserCharacterSelectionID + "]_CharacterName" })
+        </td>
+        <td>
+            <label class="checkbox-inline" id="AliveContainer_@item.UserCharacterSelectionID">
+                <input id="toggle-event_@item.UserCharacterSelectionID" type="checkbox" data-toggle="toggle" data-on="Alive" data-off="Dead" name="item.AliveStatus" checked="@item.AliveStatus" data-onstyle="success" data-offstyle="danger" disabled>
+            </label>
+        </td>
+        <td>
+            <label class="checkbox-inline" id="WhiteWalkerContainer_@item.UserCharacterSelectionID">
+                <input id="toggle-event_ww_@item.UserCharacterSelectionID" type="checkbox" data-toggle="toggle" data-on="WhiteWalker" data-off="No" name="item.AliveStatus" checked="@item.BecomesAWhiteWalker" data-onstyle="info" data-offstyle="danger" disabled>
+            </label>
+
+        </td>
+    </tr>
+        }
+
+</table>
+
+<p style="color:green; font-size:12px;">@ViewBag.Message</p>
+
+<script src="~/js/bootstrap-toggle.js"></script>
+

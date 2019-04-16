@@ -1,1 +1,1 @@
-﻿// Write your JavaScript code.
+﻿// I can write my own code

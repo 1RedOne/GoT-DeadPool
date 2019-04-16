@@ -1,0 +1,101 @@
+﻿@model IEnumerable<GameOfThronePool.Models.UserScoreRecord>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Message = TempData["Message"];
+}
+<style>
+    .alert-primary {
+        color: #004085;
+        background-color: #cce5ff;
+        border-color: #b8daff;
+    }
+</style>
+<br /><br />
+<h3>Update Scores?</h3>
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-primary" role="alert">
+        @ViewBag.Message
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserFriendlyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BonusScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserFriendlyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BaseScore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BonusScore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalScore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.UserScoreRecordID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.UserScoreRecordID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.UserScoreRecordID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-lg-3">
+        @using (Html.BeginForm("Index", "UserBonusQuestions", FormMethod.Post))
+        {
+            <input type="submit" value="Mark Bonus Answers" class="btn btn-default" />
+        }
+    </div>
+    <div class="col-lg-3">
+        @using (Html.BeginForm("Restage", "DeadPoolSelection", FormMethod.Post))
+        {
+            <input type="submit" value="Stage Missing CharacterRecords" class="btn btn-info" />
+        }
+    </div>
+    <div class="col-lg-3">
+        @using (Html.BeginForm("UpdateScores", "Scoreboard", FormMethod.Post))
+        {
+            <input type="submit" value="Update all Scores" class="btn btn-warning" />
+        }
+    </div>
+    
+    <div class="col-lg-3">
+        @using (Html.BeginForm("Restage", "Scoreboard", FormMethod.Post))
+        {
+            <input type="submit" value="Search for and create new Users" class="btn btn-default" />
+        }
+
+    </div>
+</div>

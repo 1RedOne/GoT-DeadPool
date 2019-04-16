@@ -1,0 +1,91 @@
+﻿@model IEnumerable<GameOfThronePool.Models.UserScoreRecord>
+
+@{
+    bool ShowModal = ViewBag.ShowModal;
+    ViewData["Title"] = "GoT 2019 - ScoreBoard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h2, h4, th {
+        font-family: OFL Sorts Mill Goudy, Noto Nastaliq Urdu, My Noto Nastaliq Urdu, Georgia, serif;
+    }
+
+    body {
+        padding-top: 50px;
+        padding-bottom: 20px;
+        font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
+    }
+
+        body > div.bootbox.modal.fade.bootbox-alert.in {
+            margin-top: 250px;
+            font-size: 16px;
+            font-family: OFL Sorts Mill Goudy, Noto Nastaliq Urdu, My Noto Nastaliq Urdu, Georgia, serif;
+        }
+</style>
+<br />
+<div class="row">
+    <div class="col-lg-6">
+        <h2>Leaderboards</h2>
+    </div>
+    @if (ViewBag.IsPrivileged)
+    {
+        <div class="col-lg-2 pull-right">
+            <a href="ScoreBoard/Update" class="btn btn-warning">
+                Admin Tools
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+            </a>
+        </div>
+    }
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Rulers Name
+            </th>
+            <th>
+                Points
+            </th>
+            <th>
+                Bonus Points
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalScore)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderByDescending(a => a.TotalScore))
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(@item.UserFriendlyName, "ViewOnly", "DeadPoolSelection", new { UserScoreRecordID = item.UserScoreRecordID })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BaseScore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BonusScore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalScore)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script src="~/lib/bootbox.min.js"></script>
+<script src="~/lib/bootbox.locales.min.js"></script>
+<i>Scores last updated at @Model.FirstOrDefault().CreatedDate</i>
+@if (ShowModal) {
+<script>
+    bootbox.alert({
+        message: "You can now view others selections!  <br>Click someone's name to see how bloodthirsty they are!",
+        backdrop: true
+    });
+</script>
+}

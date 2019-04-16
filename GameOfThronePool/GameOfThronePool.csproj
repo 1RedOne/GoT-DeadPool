@@ -13,10 +13,15 @@
     <Compile Remove="Data\Migrations\20190327192107_AddingLotsofStuff.Designer.cs" />
     <Compile Remove="Migrations\20190328184817_AddShowandUSerClass.cs" />
     <Compile Remove="Migrations\20190328184817_AddShowandUSerClass.Designer.cs" />
+    <Compile Remove="Migrations\20190407024328_fixdataTypeNotBool.cs" />
+    <Compile Remove="Migrations\20190407024328_fixdataTypeNotBool.Designer.cs" />
+    <Compile Remove="Migrations\20190407024507_fixdataTypeNotBool2.cs" />
+    <Compile Remove="Migrations\20190407024507_fixdataTypeNotBool2.Designer.cs" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <PackageReference Include="Bootbox.JS" Version="5.0.1" />
     <PackageReference Include="BuildBundlerMinifier" Version="2.9.406" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.3" PrivateAssets="All" />

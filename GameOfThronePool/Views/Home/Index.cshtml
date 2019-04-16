@@ -6,7 +6,12 @@
     h2, h4 {
         font-family: OFL Sorts Mill Goudy, Noto Nastaliq Urdu, My Noto Nastaliq Urdu, Georgia, serif;
     }
-
+    
+    body {
+        padding-top: 50px;
+        padding-bottom: 20px;
+        font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
+    }
     .carousel-inner item {
         height: 300px;
         overflow: hidden;
@@ -14,11 +19,6 @@
     }    
     .carousel-item img {
         width: 100%;
-    }
-    body {
-        padding-top: 50px;
-        padding-bottom: 20px;
-        font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
     }
 
     #myCarousel > div > div.item.active > div > h3 {
@@ -38,10 +38,18 @@
     </ol>
     <div class="carousel-inner" role="listbox">
         <div class="item active">
+            <img src="~/images/sansa_stark_in_game_of_thrones_final_season_8_2019-1920x1080.jpg" alt="ForTheNightIsDarkAndFullOfTerrors" />
+            <div class="carousel-caption" role="option">
+                <h3>
+                    <a href="https://www.facebook.com/groups/375898252994350/">Split a real pool to build your own Casterly Rock!</a>
+                </h3>
+            </div>
+        </div>
+        <div class="item">
             <img src="~/images/WinterIsComing.jpg" alt="Assistant to the night king" />
             <div class="carousel-caption" role="option">
                 <h3>
-                    Register or sign in now!<br />
+                    Sign in now!<br />
                     @Html.ActionLink("Register⚔", "Login", "Account", null, new { @class = "btn btn-default" })
                 </h3>
             </div>
@@ -53,14 +61,6 @@
                     Join the group chat!<br />
                     <a class="btn btn-default" href="https://www.facebook.com/groups/375898252994350/">Join the chat!</a>
                 </h3>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/Baratheon.jpg" alt="ForTheNightIsDarkAndFullOfTerrors" />
-            <div class="carousel-caption" role="option">
-                <h3>    
-                <a href="https://www.facebook.com/groups/375898252994350/">Split a real pool to build your own Casterly Rock!</a>
-                </h3>                               
             </div>
         </div>
     </div>
@@ -92,13 +92,13 @@
     <div class="col-md-3">
         <h2>Track who lives and dies</h2>
         <ul>
-            <li>View the current leaderboard!</li>
+            <li><a asp-area="" asp-controller="ScoreBoard" asp-action="Index">View the current score board!</a></li>            
             <li><a asp-area="" asp-controller="SetupCharacters" asp-action="Index">View the Status of characters from the show!</a></li>
-            <li><a asp-area="" asp-controller="DeadPoolSelection" asp-action="Index">Setup My DeathPool!</a></li>
+            <li><a asp-area="" asp-controller="DeadPoolSelection" asp-action="Index">View My DeathPool!</a></li>
         </ul>
     </div>
 </div>
 
 <div class="row">
-Current players     
+<a asp-area="" asp-controller="MailTest" asp-action="Index">✉</a>
 </div>

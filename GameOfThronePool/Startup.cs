@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using GameOfThronePool.Data;
 using GameOfThronePool.Models;
 using GameOfThronePool.Services;
+using Microsoft.AspNetCore.DataProtection;
+using System.IO;
 
 namespace GameOfThronePool
 {
@@ -26,19 +28,31 @@ namespace GameOfThronePool
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var environment = services.BuildServiceProvider().GetRequiredService<IHostingEnvironment>();
+
+            services.AddMvc();
             services.AddDbContext<DeadPoolDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             /*services.AddDefaultIdentity<IdentityUser>(config =>
             {
                 config.SignIn.RequireConfirmedEmail = true;
             });*/
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()                
                 .AddEntityFrameworkStores<DeadPoolDBContext>()
                 .AddDefaultTokenProviders();
+            
+            //cookie configuration
+            services.Configure<SecurityStampValidatorOptions>(options => 
+                options.ValidationInterval = TimeSpan.FromDays(10));
+
+            services.AddDataProtection()
+                    .SetApplicationName($"my-app-{environment.EnvironmentName}")
+                    .PersistKeysToFileSystem(new DirectoryInfo($@"{environment.ContentRootPath}\keys"));
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddMvc();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,49 @@
+﻿@model GameOfThronePool.Models.UserScoreRecord
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserScoreRecord</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserFriendlyName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserFriendlyName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BaseScore)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BaseScore)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BonusScore)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BonusScore)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalScore)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalScore)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.UserScoreRecordID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,5 +1,5 @@
 /*! ========================================================================
- * Bootstrap Toggle: bootstrap-toggle.js v2.2.0
+ * Bootstrap Toggle: bootstrap-toggle.js v2.2.0 ham ham ham 
  * http://www.bootstraptoggle.com
  * ========================================================================
  * Copyright 2014 Min Hur, The New York Times Company

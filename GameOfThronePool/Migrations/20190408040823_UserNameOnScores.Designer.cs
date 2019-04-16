@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameOfThronePool.Migrations
 {
     [DbContext(typeof(DeadPoolDBContext))]
-    [Migration("20190327193428_Initial")]
-    partial class Initial
+    [Migration("20190408040823_UserNameOnScores")]
+    partial class UserNameOnScores
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,15 +36,9 @@ namespace GameOfThronePool.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<DateTime>("EnrollmentDate");
-
-                    b.Property<int>("ID");
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("Name");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -61,6 +55,8 @@ namespace GameOfThronePool.Migrations
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserFriendlyName");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
@@ -99,6 +95,27 @@ namespace GameOfThronePool.Migrations
                     b.ToTable("ShowCharacterStatusRecord");
                 });
 
+            modelBuilder.Entity("GameOfThronePool.Models.UserBonusQuestion", b =>
+                {
+                    b.Property<int>("UserBonusQuestionID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Correct");
+
+                    b.Property<string>("QuestionAnswer");
+
+                    b.Property<int>("QuestionNumber");
+
+                    b.Property<string>("QuestionText");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("UserBonusQuestionID");
+
+                    b.ToTable("UserBonusQuestion");
+                });
+
             modelBuilder.Entity("GameOfThronePool.Models.UserCharacterSelection", b =>
                 {
                     b.Property<int>("UserCharacterSelectionID")
@@ -106,8 +123,6 @@ namespace GameOfThronePool.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("AliveStatus");
-
-                    b.Property<string>("ApplicationUserId");
 
                     b.Property<bool>("BecomesAWhiteWalker");
 
@@ -117,13 +132,34 @@ namespace GameOfThronePool.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<int>("UserID");
+                    b.Property<string>("UserName");
 
                     b.HasKey("UserCharacterSelectionID");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.ToTable("UserCharacterSelection");
+                });
+
+            modelBuilder.Entity("GameOfThronePool.Models.UserScoreRecord", b =>
+                {
+                    b.Property<int>("UserScoreRecordID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BaseScore");
+
+                    b.Property<int?>("BonusScore");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<int?>("TotalScore");
+
+                    b.Property<string>("UserFriendlyName");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("UserScoreRecordID");
+
+                    b.ToTable("UserScoreRecord");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -234,13 +270,6 @@ namespace GameOfThronePool.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("GameOfThronePool.Models.UserCharacterSelection", b =>
-                {
-                    b.HasOne("GameOfThronePool.Models.ApplicationUser")
-                        .WithMany("UserCharacterSelection")
-                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

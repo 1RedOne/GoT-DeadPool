@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "Mail Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<style>
+    .pending {
+        background: url('../../images/cube-1s-30px.gif') no-repeat right center;
+    }
+</style>
+<h2>Mail Test</h2>
+<form id="inputform">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon3">Recipient Email:</span>
+                <input type="text" class="form-control" placeholder="Recipient's username" value="sred13@gmail.com"
+                       id="toEmail" name="toEmail">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon3">Mail Subject:</span>
+                <input type="text" class="form-control" placeholder="Mail Subject" value="Some Mail SUbject here"
+                       id="Subject" name="Subject">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon3">Mail Body:</span>
+                <input type="text" class="form-control" placeholder="Message for body" value="Some cool message content"
+                       id="Body" name="Body">
+            </div>
+            <button id="Button" name="Button" onclick="SendMsg(); return false" class="btn btn-default">Register</button>
+            <span id="StatusBox" name="StatusBox">Ready to send...</span>
+        </div>
+    </div>
+</form>
+<script>
+    function SendMsg() {
+        console.log("logging click");
+        $('#StatusBox').addClass('pending');
+        $.ajax({
+            url: '/MailTest/Send',
+            timeout: 86400,
+            method: 'POST',
+            data: $("#inputform").serialize(),
+            //data: JSON.stringify({
+            //    toEmail: $('#toEmail').val(),
+            //    Body: $('#Body').val(),
+            //    Subject: $('#Subject').val()
+            //}),
+            success: function (data) {
+                $('#StatusBox').removeClass('pending', 500)
+                bootbox.alert({
+                    message: "Message Status - " + data["status"] + " Sent: " + data["body"] + "key\n" + data["key"],
+                    backdrop: true
+                });                
+            },
+            error: function () {
+                alert("Couldn't update this row, try the Edit button");
+            }
+        });
+    };
+</script>
+
+
+<script src="~/lib/bootbox.min.js"></script>
+<script src="~/lib/bootbox.locales.min.js"></script>

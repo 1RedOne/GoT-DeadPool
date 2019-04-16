@@ -1,7 +1,7 @@
 ﻿@model List<GameOfThronePool.Models.UserCharacterSelection>
 @inject UserManager<ApplicationUser> UserManager
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "GoT 2019 - My DeadPool";
     Layout = "~/Views/Shared/_Layout.cshtml";
     string username = @UserManager.GetUserName(User);
     var userEntity = await @UserManager.FindByNameAsync(username);
@@ -31,7 +31,6 @@
 
     .pending {
         background: url('../../images/cube-1s-30px.gif') no-repeat right center;
-        
     }
 
     .checkbox-inline {
@@ -43,10 +42,11 @@
 <h2>My Deathpool</h2>
 <div class="jumbotron">
     <h3>
-        @name, use this space to setup your Deathpool Predictions!<br /> You can change these until <font color="yellow">April 17th, 2019</font>
+        @name, these are your Selections for the Game of Thrones Deathpool!<br /> Enjoy the show and remember to <a href="https://www.facebook.com/groups/375898252994350/">participate in the chat for episode discussion!</a> 
     </h3>
 </div>
 
+<link href="~/css/bootstrap-toggle.css" rel="stylesheet" />
 @using (@Html.BeginForm("PostUpdate", "DeadPoolSelection"))
 {
     <table class="table">
@@ -60,7 +60,6 @@
             <th>
                 Do they become a White Walker?
             </th>
-            <th></th>
         </tr>
         @foreach (var item in Model)
         {
@@ -72,7 +71,7 @@
                 </td>
                 <td>
                     <label class="checkbox-inline" id="AliveContainer_@item.UserCharacterSelectionID">
-                        <input id="toggle-event_@item.UserCharacterSelectionID" type="checkbox" data-toggle="toggle" data-on="Alive" data-off="Dead" name="item.AliveStatus" checked="@item.AliveStatus" data-onstyle="success" data-offstyle="danger">
+                        <input id="toggle-event_@item.UserCharacterSelectionID" type="checkbox" data-toggle="toggle" data-on="Alive" data-off="Dead" name="item.AliveStatus" checked="@item.AliveStatus" data-onstyle="success" data-offstyle="danger" disabled>
                     </label>
                     <script>
                         $(function () {
@@ -84,7 +83,7 @@
                                     data: { id: @item.UserCharacterSelectionID, Property:'AliveStatus', Value:$(this).prop('checked')},
                                     success: function (data) {
                                         $('#AliveContainer_@item.UserCharacterSelectionID').removeClass('pending',500)
-                                        
+
                                     },
                                     error: function () {
                                         alert("Couldn't update this row, try the Edit button");}
@@ -95,7 +94,7 @@
                 </td>
                 <td>
                     <label class="checkbox-inline" id="WhiteWalkerContainer_@item.UserCharacterSelectionID">
-                        <input id="toggle-event_ww_@item.UserCharacterSelectionID" type="checkbox" data-toggle="toggle" data-on="WhiteWalker" data-off="No" name="item.AliveStatus" checked="@item.BecomesAWhiteWalker" data-onstyle="info" data-offstyle="danger">
+                        <input id="toggle-event_ww_@item.UserCharacterSelectionID" type="checkbox" data-toggle="toggle" data-on="WhiteWalker" data-off="No" name="item.AliveStatus" checked="@item.BecomesAWhiteWalker" data-onstyle="info" data-offstyle="danger" disabled>
                     </label>
                     <script>
                         $(function () {
@@ -114,10 +113,7 @@
                                 });
                             });
                             })
-                    </script>                    
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.UserCharacterSelectionID">Edit</a>
+                    </script>
                 </td>
             </tr>
         }
@@ -126,6 +122,6 @@
 
     <p style="color:green; font-size:12px;">@ViewBag.Message</p>
 }
-@await Component.InvokeAsync("MyBonusQuestions", new { UserName = User})
-
+@await Component.InvokeAsync("MyBonusQuestions", new { UserName = User })
+<script src="~/js/bootstrap-toggle.js"></script>
 

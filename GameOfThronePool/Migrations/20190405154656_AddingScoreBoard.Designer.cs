@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameOfThronePool.Migrations
 {
     [DbContext(typeof(DeadPoolDBContext))]
-    [Migration("20190403144656_AddUserQuestions")]
-    partial class AddUserQuestions
+    [Migration("20190405154656_AddingScoreBoard")]
+    partial class AddingScoreBoard
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -137,6 +137,27 @@ namespace GameOfThronePool.Migrations
                     b.HasKey("UserCharacterSelectionID");
 
                     b.ToTable("UserCharacterSelection");
+                });
+
+            modelBuilder.Entity("GameOfThronePool.Models.UserScoreRecord", b =>
+                {
+                    b.Property<int>("UserScoreRecordID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BaseScore");
+
+                    b.Property<bool>("BonusScore");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<int?>("TotalScore");
+
+                    b.Property<string>("UserFriendlyName");
+
+                    b.HasKey("UserScoreRecordID");
+
+                    b.ToTable("UserScoreRecord");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
