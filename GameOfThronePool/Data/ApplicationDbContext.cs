@@ -30,9 +30,9 @@ namespace GameOfThronePool.Data
         public DbSet<GameOfThronePool.Models.UserCharacterSelection> UserCharacterSelection { get; set; }
         public DbSet<GameOfThronePool.Models.UserBonusQuestion> UserBonusQuestion { get; set; }
         public DbSet<GameOfThronePool.Models.UserScoreRecord> UserScoreRecord { get; set; }
-        public DbQuery<CorrectAnswers> CorrectAnswers { get; set; }
-        public DbQuery<rightWhiteWalkers> rightWhiteWalkers { get; set; }
-        public DbQuery<wrongWhiteWalkers> wrongWhiteWalkers { get; set; }
-        public DbQuery<BonusQuestions> BonusQuestions { get; set; }
+        public DbSet<CorrectAnswers> CorrectAnswers { get; set; }
+        public DbSet<rightWhiteWalkers> rightWhiteWalkers { get; set; }
+        public DbSet<wrongWhiteWalkers> wrongWhiteWalkers { get; set; }
+        public DbSet<BonusQuestions> BonusQuestions { get; set; }
     }
 }

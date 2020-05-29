@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GameOfThronePool.Data;
 using Microsoft.AspNetCore.Identity;
@@ -86,23 +85,23 @@ namespace GameOfThronePool.Models
                 return Unauthorized();
             }
             //todo update and reward for proper whitewalker guesses
-            List<CorrectAnswers> Correct = _context.CorrectAnswers.FromSql(@"select UserName,count(distinct ShowCharacterStatusRecordID) as 'MatchingAnswers' 
+            List<CorrectAnswers> Correct = _context.CorrectAnswers.FromSqlRaw(@"select UserName,count(distinct ShowCharacterStatusRecordID) as 'MatchingAnswers' 
                     from UserCharacterSelection as USelection
                     join ShowCharacterStatusRecord as SHOW on SHOW.CharacterName = USelection.CharacterName and SHow.AliveStatus = USelection.AliveStatus
                     group by UserName ").ToList();
 
-            List<wrongWhiteWalkers> wrongWW= _context.wrongWhiteWalkers.FromSql(@"select UserName,count(distinct ShowCharacterStatusRecordID) as 'WrongWhiteWalkers' 
+            List<wrongWhiteWalkers> wrongWW= _context.wrongWhiteWalkers.FromSqlRaw(@"select UserName,count(distinct ShowCharacterStatusRecordID) as 'WrongWhiteWalkers' 
                     from UserCharacterSelection as USelection
                     join ShowCharacterStatusRecord as SHOW on SHOW.CharacterName =USelection.CharacterName and SHow.WhiteWalkerStatus != USelection.BecomesAWhiteWalker
                     where USelection.BecomesAWhiteWalker = 1
                     group by UserName").ToList();
-            List<rightWhiteWalkers> rightWW = _context.rightWhiteWalkers.FromSql(@"select UserName, count(distinct ShowCharacterStatusRecordID) as 'RightWhiteWalkers'
+            List<rightWhiteWalkers> rightWW = _context.rightWhiteWalkers.FromSqlRaw(@"select UserName, count(distinct ShowCharacterStatusRecordID) as 'RightWhiteWalkers'
                     from UserCharacterSelection as USelection
                     join ShowCharacterStatusRecord as SHOW on SHOW.CharacterName = USelection.CharacterName and SHow.WhiteWalkerStatus = USelection.BecomesAWhiteWalker
                     where USelection.BecomesAWhiteWalker = 1
                     group by UserName").ToList();
 
-            List<BonusQuestions> bonus = _context.BonusQuestions.FromSql(@"select UserName, QuestionNumber 
+            List<BonusQuestions> bonus = _context.BonusQuestions.FromSqlRaw(@"select UserName, QuestionNumber 
                     from UserBonusQuestion 
                     where Correct = 1
                     group by UserName, QuestionNumber ").ToList();
