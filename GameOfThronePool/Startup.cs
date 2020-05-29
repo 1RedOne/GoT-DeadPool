@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -30,9 +27,11 @@ namespace GameOfThronePool
         {
             var environment = services.BuildServiceProvider().GetRequiredService<IHostingEnvironment>();
 
-            services.AddMvc();
-            services.AddDbContext<DeadPoolDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddMvc(
+                options => options.EnableEndpointRouting = false);
+            
+            services.AddDbContext<DeadPoolDBContext>(options =>            
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             /*services.AddDefaultIdentity<IdentityUser>(config =>
             {
                 config.SignIn.RequireConfirmedEmail = true;
@@ -59,10 +58,9 @@ namespace GameOfThronePool
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
-            {
+            {                
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {

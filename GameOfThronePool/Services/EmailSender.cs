@@ -5,7 +5,7 @@ using System.Linq;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
-using Microsoft.IdentityModel.Protocols;
+//using Microsoft.IdentityModel.Protocols;
 using Microsoft.Extensions.Configuration;
 
 namespace GameOfThronePool.Services
